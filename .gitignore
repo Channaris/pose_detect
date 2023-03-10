@@ -4,6 +4,7 @@ __pycache__/
 *$py.class
 img/boxing/
 
+
 # C extensions
 *.so
 
@@ -110,6 +111,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+pose-detect/
 
 # Spyder project settings
 .spyderproject
