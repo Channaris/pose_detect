@@ -1,13 +1,20 @@
-from flask import Flask
+import pymongo
+import configparser
 
+config = configparser.ConfigParser()
+config.read('D:\\work\\braiven\\punching\\mediapipe\\pose_detect\\config.ini')
 
-app = Flask(__name__)
+mongo = config['config']['mongo']
+# print(mongo)
 
+class savedata:
+    def __init__(self):
+        myclient = pymongo.MongoClient("mongodb+srv://wiewworkmotion:wiewworkmotion@cluster0.pu7bm.mongodb.net/?retryWrites=true&w=majority")
+        mydb = myclient["pose_detect"]
+        self.mycol = mydb["pose_detect"]
 
-@app.route('/')
-def home():
-    return "Hello World"
+    def insert_data_mongo(self, data):
 
+        mydict = data
 
-if __name__ == "__main__":
-    app.run(debug=True)
+        x = self.mycol.insert_one(mydict)

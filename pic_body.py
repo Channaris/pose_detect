@@ -21,8 +21,8 @@ def calculate_angle(a, b, c):
     return angle
 
 
-# cap = cv2.imread('img/l.jpg')
-cap = cv2.imread('img/s.png')
+cap = cv2.imread('img/l.jpg')
+# cap = cv2.imread('img/s.png')
 
 with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as pose:
 

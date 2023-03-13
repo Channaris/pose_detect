@@ -1,10 +1,16 @@
 import cv2
 import mediapipe as mp
 import numpy as np
+import time
+import sys
+sys.path.append('D:\\work\\braiven\\punching\\mediapipe\\pose_detect\\api')
+from sendtodb.app import savedata
 
 mp_drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
 
+named_tuple = time.localtime() # get struct_time
+time_string = time.strftime("%d/%m/%Y, %H:%M:%S", named_tuple)
 
 def calculate_angle(a,b,c):
     a = np.array(a)
@@ -47,7 +53,12 @@ with mp_pose.Pose( min_detection_confidence=0.5, min_tracking_confidence=0.5) as
 
         if angle > 63:
             cv2.putText(image,'hand up',(10,30),cv2.FONT_HERSHEY_SIMPLEX,0.8,(0,255,0),cv2.LINE_4)
-
+            data = {
+                'status' : 'hand up',
+                'time' : time_string
+            }
+            savedata().insert_data_mongo(data)
+        
         # print(calculate_angle)
 
         # print('landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value]',shoulder)
